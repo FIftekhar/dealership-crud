@@ -1,0 +1,12 @@
+<!-- dealership/templates/dealership/customer/confirm_delete.html -->
+{% extends 'dealership/base.html' %}
+{% block title %}Delete Customer - Car Dealership{% endblock %}
+{% block content %}
+    <h1 class="mb-4">Delete Customer</h1>
+    <p>Are you sure you want to delete <strong>{{ customer.first_name }} {{ customer.last_name }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'customer_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

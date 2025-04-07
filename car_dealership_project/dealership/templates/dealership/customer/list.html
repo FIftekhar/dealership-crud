@@ -1,0 +1,35 @@
+<!-- dealership/templates/dealership/customer/list.html -->
+{% extends 'dealership/base.html' %}
+{% block title %}Customers - Car Dealership{% endblock %}
+{% block content %}
+    <h1 class="mb-4">Customers</h1>
+    <a href="{% url 'customer_create' %}" class="btn btn-primary mb-3">Add New Customer</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+                <tr>
+                    <td>{{ customer.id }}</td>
+                    <td>{{ customer.first_name }} {{ customer.last_name }}</td>
+                    <td>{{ customer.email|default:"N/A" }}</td>
+                    <td>{{ customer.phone_number|default:"N/A" }}</td>
+                    <td>
+                        <a href="{% url 'customer_detail' customer.pk %}" class="btn btn-info btn-sm">View</a>
+                        <a href="{% url 'customer_update' customer.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'customer_delete' customer.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5">No customers found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!-- dealership/templates/dealership/transaction/form.html -->
+{% extends 'dealership/base.html' %}
+{% block title %}{{ title }} - Car Dealership{% endblock %}
+{% block content %}
+    <h1 class="mb-4">{{ title }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_customer" class="form-label">Customer</label>
+            {{ form.customer }}
+        </div>
+        <div class="mb-3">
+            <label for="id_vehicle" class="form-label">Vehicle</label>
+            {{ form.vehicle }}
+        </div>
+        <div class="mb-3">
+            <label for="id_employee" class="form-label">Employee</label>
+            {{ form.employee }}
+        </div>
+        <div class="mb-3">
+            <label for="id_sale_price" class="form-label">Sale Price</label>
+            {{ form.sale_price }}
+        </div>
+        <div class="mb-3">
+            <label for="id_payment_type" class="form-label">Payment Type</label>
+            {{ form.payment_type }}
+        </div>
+        <div class="mb-3">
+            <label for="id_status" class="form-label">Status</label>
+            {{ form.status }}
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{% url 'transaction_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

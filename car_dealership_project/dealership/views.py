@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Customer, Vehicle, Employee, Transaction
 from .forms import CustomerForm, VehicleForm, EmployeeForm, TransactionForm
+from django.shortcuts import redirect
 
 # Home view
 def home(request):
@@ -187,3 +188,6 @@ def transaction_create(request):
     else:
         form = TransactionForm()
     return render(request, 'dealership/transaction/form.html', {'form': form, 'title': 'Create New Transaction'})
+
+def redirect_favicon(request):
+    return redirect('/')

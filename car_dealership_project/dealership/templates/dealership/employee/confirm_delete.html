@@ -1,0 +1,12 @@
+<!-- dealership/templates/dealership/employee/confirm_delete.html -->
+{% extends 'dealership/base.html' %}
+{% block title %}Delete Employee - Car Dealership{% endblock %}
+{% block content %}
+    <h1 class="mb-4">Delete Employee</h1>
+    <p>Are you sure you want to delete <strong>{{ employee.first_name }} {{ employee.last_name }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'employee_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

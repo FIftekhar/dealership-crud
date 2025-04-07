@@ -1,0 +1,37 @@
+<!-- dealership/templates/dealership/employee/list.html -->
+{% extends 'dealership/base.html' %}
+{% block title %}Employees - Car Dealership{% endblock %}
+{% block content %}
+    <h1 class="mb-4">Employees</h1>
+    <a href="{% url 'employee_create' %}" class="btn btn-primary mb-3">Add New Employee</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+                <tr>
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+                    <td>{{ employee.position|default:"N/A" }}</td>
+                    <td>{{ employee.email }}</td>
+                    <td>{{ employee.phone_number|default:"N/A" }}</td>
+                    <td>
+                        <a href="{% url 'employee_detail' employee.pk %}" class="btn btn-info btn-sm">View</a>
+                        <a href="{% url 'employee_update' employee.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'employee_delete' employee.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6">No employees found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

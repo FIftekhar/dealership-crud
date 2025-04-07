@@ -1,0 +1,67 @@
+<!-- dealership/templates/dealership/home.html -->
+{% extends 'dealership/base.html' %}
+{% block title %}Home - Car Dealership{% endblock %}
+{% block content %}
+    <h1 class="mb-4">Welcome to the Car Dealership</h1>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Vehicles</h5>
+                    <p class="card-text">{{ vehicles_count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Available Vehicles</h5>
+                    <p class="card-text">{{ available_vehicles }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Customers</h5>
+                    <p class="card-text">{{ customers_count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Employees</h5>
+                    <p class="card-text">{{ employees_count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-5">Recent Transactions</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Vehicle</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in recent_transactions %}
+                <tr>
+                    <td>{{ transaction.id }}</td>
+                    <td>{{ transaction.customer }}</td>
+                    <td>{{ transaction.vehicle }}</td>
+                    <td>{{ transaction.transaction_date|date:"Y-m-d" }}</td>
+                    <td>{{ transaction.status }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5">No recent transactions.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
