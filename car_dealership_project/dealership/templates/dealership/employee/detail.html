@@ -1,0 +1,6 @@
+<p>Total Transactions: {{ transaction_count }}</p>
+<form method="post">
+  {% csrf_token %}
+  <input type="text" name="email" placeholder="Update email" />
+  <input type="submit" value="Update" />
+</form>

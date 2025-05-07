@@ -17,7 +17,7 @@
         <tbody>
             {% for employee in employees %}
                 <tr>
-                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.employee_id }}</td>
                     <td>{{ employee.first_name }} {{ employee.last_name }}</td>
                     <td>{{ employee.position|default:"N/A" }}</td>
                     <td>{{ employee.email }}</td>

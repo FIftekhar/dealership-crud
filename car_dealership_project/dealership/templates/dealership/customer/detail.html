@@ -1,13 +1,133 @@
 {% extends 'dealership/base.html' %}
-{% block title %}Delete Customer - Car Dealership{% endblock %}
+{% block title %}Customer Details - Car Dealership{% endblock %}
 {% block content %}
-<h1 class="mb-4">Customer Details: <strong>{{ customer.first_name }} {{ customer.last_name }}</strong></h1>
-    <h1>{{ customer.name }}</h1>
-    <p><strong>Email: </strong> {{ customer.email }}</p>
-    <p><strong>Phone: </strong> {{ customer.phone_number }}</p>
-    <p><strong>Address: </strong>{{ customer.address }}</p>
-    <p><strong>Date of Birth: </strong>{{ customer.date_of_birth }}</p>
+<div class="container">
+    <!-- Customer Information Card -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2>Customer Details: {{ customer.first_name }} {{ customer.last_name }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Email:</strong> {{ customer.email }}</p>
+                    <p><strong>Phone:</strong> {{ customer.phone_number }}</p>
+                    <p><strong>Address:</strong> {{ customer.address }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Date of Birth:</strong> {{ customer.date_of_birth }}</p>
+                    <p><strong>Customer ID:</strong> {{ customer.customer_id }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
     
-</html>
-
+    <!-- Purchase Statistics Card -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h3>Purchase Statistics</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-center bg-light">
+                        <div class="card-body">
+                            <h5>Total Transactions</h5>
+                            <h2>{{ stats.total_transactions }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center bg-light">
+                        <div class="card-body">
+                            <h5>Total Spent</h5>
+                            <h2>${{ stats.total_spent|default:'0'|floatformat:2 }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center bg-light">
+                        <div class="card-body">
+                            <h5>Average Purchase</h5>
+                            <h2>${{ stats.average_purchase|default:'0'|floatformat:2 }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center bg-light">
+                        <div class="card-body">
+                            <h5>Customer Since</h5>
+                            <h2>{{ stats.first_transaction|date:"M Y" }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Transaction History Card -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <h3>Transaction History</h3>
+        </div>
+        <div class="card-body">
+            {% if transactions %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Date</th>
+                                <th>Vehicle</th>
+                                <th>Sale Price</th>
+                                <th>Payment Type</th>
+                                <th>Sales Rep</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transaction in transactions %}
+                                <tr>
+                                    <td>{{ transaction.transaction_id }}</td>
+                                    <td>{{ transaction.transaction_date }}</td>
+                                    <td>{{ transaction.vehicle_details }}</td>
+                                    <td>${{ transaction.sale_price|floatformat:2 }}</td>
+                                    <td>{{ transaction.payment_type }}</td>
+                                    <td>{{ transaction.employee_name }}</td>
+                                    <td>
+                                        <span class="badge {% if transaction.status == 'Completed' %}bg-success{% elif transaction.status == 'Pending' %}bg-warning{% else %}bg-danger{% endif %}">
+                                            {{ transaction.status }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-center">No transactions found for this customer.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Actions Card -->
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+            <h3>Actions</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="{% url 'customer_update' pk=customer.customer_id %}" class="btn btn-primary btn-block">Edit Customer</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="{% url 'transaction_create' %}?customer={{ customer.customer_id }}" class="btn btn-success btn-block">New Transaction</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="{% url 'customer_delete' pk=customer.customer_id %}" class="btn btn-danger btn-block">Delete Customer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

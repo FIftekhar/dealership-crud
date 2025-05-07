@@ -19,7 +19,7 @@
         <tbody>
             {% for transaction in transactions %}
                 <tr>
-                    <td>{{ transaction.id }}</td>
+                    <td>{{ transaction.transaction_id }}</td>
                     <td>{{ transaction.customer|default:"N/A" }}</td>
                     <td>{{ transaction.vehicle|default:"N/A" }}</td>
                     <td>{{ transaction.employee|default:"N/A" }}</td>

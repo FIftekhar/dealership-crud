@@ -53,7 +53,7 @@
         <tbody>
             {% for transaction in recent_transactions %}
                 <tr>
-                    <td>{{ transaction.id }}</td>
+                    <td>{{ transaction.transaction_id }}</td>
                     <td>{{ transaction.customer }}</td>
                     <td>{{ transaction.vehicle }}</td>
                     <td>{{ transaction.transaction_date|date:"Y-m-d" }}</td>
@@ -64,4 +64,6 @@
             {% endfor %}
         </tbody>
     </table>
+
+    
 {% endblock %}
